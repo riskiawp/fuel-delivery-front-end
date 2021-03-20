@@ -1,17 +1,26 @@
+<?php
+require 'functions.php';
+$users = query("SELECT * FROM tabel_user");
+session_start();
+if($_SESSION['peran']==""){
+    header("location:dashboard-admin.php?pesan=gagal");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>SB Admin 2 - Blank</title>
     <!-- Custom fonts for this template-->
-    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
-    <link href="/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -53,12 +62,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tabel Driver</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tabel Supervisor</span></a>
+                    <span>Data User</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -152,7 +156,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                 <img class="img-profile rounded-circle"
-                                    src="/assets/img/undraw_profile.svg">
+                                    src="../assets/img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -170,93 +174,58 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Tabel Driver</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Tabel User</h1>
                     <div class="row">
                         <div class="col-xl-12 col-md-12 mb-12">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-danger">Data Driver Fuel Delivery</h6>
+                                    <h6 class="m-0 font-weight-bold text-danger">Data Driver Fuel Delivery
+                                        <button class="btn btn-success btn-sm float-right" type="button">Tambah</button>
+                                    </h6>
+                                    
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th>Salary</th>
+                                                    <th>No.</th>
+                                                    <th>Username</th>
+                                                    <th>Password</th>
+                                                    <th>Nama</th>
+                                                    <th>No. HP</th>
+                                                    <th>Role</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>Position</th>
-                                                    <th>Office</th>
-                                                    <th>Age</th>
-                                                    <th>Start date</th>
-                                                    <th>Salary</th>
+                                                    <th>No.</th>
+                                                    <th>Username</th>
+                                                    <th>Password</th>
+                                                    <th>Nama</th>
+                                                    <th>No. HP</th>
+                                                    <th>Role</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
+                                                <?php $i = 1;?>
+                                                <?php foreach($users as $row) : ?>
                                                 <tr>
-                                                    <td>Cara Stevens</td>
-                                                    <td>Sales Assistant</td>
-                                                    <td>New York</td>
-                                                    <td>46</td>
-                                                    <td>2011/12/06</td>
-                                                    <td>$145,600</td>
+                                                    <td><?= $i; ?></td>
+                                                    <td><?= $row["username"]; ?></td>
+                                                    <td><?= $row["password"]; ?></td>
+                                                    <td><?= $row["nama"]; ?></td>
+                                                    <td><?= $row["no_hp"]; ?></td>
+                                                    <td><?= $row["peran"]; ?></td>
+                                                    <td>
+                                                        <button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#exampleModalLg">Update</button>
+                                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                                    </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Hermione Butler</td>
-                                                    <td>Regional Director</td>
-                                                    <td>London</td>
-                                                    <td>47</td>
-                                                    <td>2011/03/21</td>
-                                                    <td>$356,250</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Lael Greer</td>
-                                                    <td>Systems Administrator</td>
-                                                    <td>London</td>
-                                                    <td>21</td>
-                                                    <td>2009/02/27</td>
-                                                    <td>$103,500</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jonas Alexander</td>
-                                                    <td>Developer</td>
-                                                    <td>San Francisco</td>
-                                                    <td>30</td>
-                                                    <td>2010/07/14</td>
-                                                    <td>$86,500</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shad Decker</td>
-                                                    <td>Regional Director</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>51</td>
-                                                    <td>2008/11/13</td>
-                                                    <td>$183,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Michael Bruce</td>
-                                                    <td>Javascript Developer</td>
-                                                    <td>Singapore</td>
-                                                    <td>29</td>
-                                                    <td>2011/06/27</td>
-                                                    <td>$183,000</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Donna Snider</td>
-                                                    <td>Customer Support</td>
-                                                    <td>New York</td>
-                                                    <td>27</td>
-                                                    <td>2011/01/25</td>
-                                                    <td>$112,000</td>
-                                                </tr>
+                                                <?php $i++; ?>
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -267,7 +236,6 @@
                 </div>
                 <!-- /.container-fluid -->
             </div>
-            
             <!-- End of Main Content -->
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -281,44 +249,75 @@
         </div>
         <!-- End of Content Wrapper -->
     </div>
-    <!-- End of Page Wrapper -->
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+                    <h5 class="modal-title">Update Data User</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group col-md-6">
+                            <label for="formGroupExampleInput">Id User</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="formGroupExampleInput">Username</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" disabled>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="formGroupExampleInput">Password</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="formGroupExampleInput">Nama</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="formGroupExampleInput">No Hp</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect">Preference</label>
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option selected>Choose...</option>
+                                <option value="1">Administrator</option>
+                                <option value="2">Supervisor</option>
+                                <option value="3">Driver</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <button class="btn btn-success" type="button" data-dismiss="modal">Update</button>
+                    <button class="btn btn-dark" type="button" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    <script src="/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- END Modal -->
+    <script src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/assets/js/sb-admin-2.min.js"></script>
+    <script src="../assets/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="/assets/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="../assets/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="/assets/js/demo/datatables-demo.js"></script>
+    <script src="../assets/js/demo/datatables-demo.js"></script>
+    <script>
+        
+    </script>
 </body>
 </html>
